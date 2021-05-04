@@ -91,7 +91,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>5.5.0</version>
-            <scope>demoblaze.test</scope>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

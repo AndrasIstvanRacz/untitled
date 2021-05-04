@@ -8,20 +8,16 @@ jobs:
     docker:
       - image: cimg/openjdk:13.0
     steps:
-      - checkout
-      - run: java --version
-      - run: node --version
-      - restore_cache:
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-      - run: mvn clean verify
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/cucumber
+            bundle exec cucumber --format pretty --format json --out ~/cucumber/tests.cucumber
+          when: always
       - store_test_results:
-          path: target/cucumber-reports
+          path: ~/cucumber
       - store_artifacts:
-          path: target/generated-report
+          path: ~/cucumber
 
 workflows:
   maven_test:
